@@ -1,7 +1,7 @@
 function showAdminQuiz(target, template, dataset, reply, disabled) {
-// Create a fake App if this plugin is used in a sandbox
+  // Create a fake App if this plugin is used in a sandbox
   if (typeof App === 'undefined') {
-    App = {user: {id: 123}};
+    App = {user: {id: 1234}};
   }
   var rnr_api_url = 'http://rootnroll.com/api',  // ! USE THIS IN PRODUCTION
       //rnr_api_url = 'http://localhost:8000/api',
@@ -56,8 +56,8 @@ function showAdminQuiz(target, template, dataset, reply, disabled) {
   };
 
   var loadQuizRequirements = function () {
-    $.getScript('http://rootnroll.com/static/bower_components/term.js/src/term.js', function () {
-      $.getScript('http://rootnroll.com/static/bower_components/tty.js/static/tty.js', function () {
+    $.getScript('https://ppctf.net/public/rnr/term.js', function () {
+      $.getScript('https://ppctf.net/public/rnr/tty.js', function () {
         tty.on('open window', function (window) {
           context.controls.terminal_switch.on = true;
           context.terminal = window;
@@ -68,12 +68,12 @@ function showAdminQuiz(target, template, dataset, reply, disabled) {
         });
       });
     });
-    $.getScript('http://rootnroll.com/static/bower_components/sockjs/sockjs.min.js');
-    $.getScript('http://rootnroll.com/static/bower_components/js-base64/base64.min.js');
+    $.getScript('https://ppctf.net/public/rnr/sockjs.min.js');
+    $.getScript('https://ppctf.net/public/rnr/base64.min.js');
     $('head').append($('<link rel="stylesheet" type="text/css" />')
-                     .attr('href', 'http://rootnroll.com/static/bower_components/tty.js/static/stepic-style.css'))
+                     .attr('href', 'https://ppctf.net/public/rnr/stepic-style.css'))
              .append($('<link rel="stylesheet" type="text/css" />')
-                     .attr('href', 'http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'));
+                     .attr('href', 'https://ppctf.net/public/rnr/font-awesome.css'));
   };
 
   var updateServerView = function () {

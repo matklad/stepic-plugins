@@ -31,6 +31,9 @@ class AdminQuiz(BaseQuiz):
         self.test_scenario = source.test_scenario
         self.task_title = source.task_title
         self.task_id = self._rnr_task_id(self.task_title)
+        if self.task_id is None:  # This is a new quiz
+            self._rnr_create_task(self.task_title)
+            self.task_id = self._rnr_task_id(self.task_title)
 
     def _rnr_task_id(self, task_title):
         """Get rootnroll task id by task title."""
@@ -68,23 +71,9 @@ class AdminQuiz(BaseQuiz):
             pass
         return None, r.json().get('detail')
 
-    def async_init(self):
-        # Check whether rnr task is already created
-        task_id = self._rnr_task_id(self.task_title)
-        if task_id is None:  # This is a new quiz
-            self._rnr_create_task(self.task_title)
-            task_id = self._rnr_task_id(self.task_title)
-        return {
-            'static_content': {
-                'task_id': task_id
-            }
-        }
-
     def generate(self):
-        # XXX: do we need it if we use `async_init`?
         dataset = {
-            # XXX: task_id should be returned in `async_init`
-            'task_id': self._rnr_task_id(self.task_title)
+            'task_id': self.task_id
         }
         clue = None
         return dataset, clue
