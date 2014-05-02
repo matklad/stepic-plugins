@@ -1,0 +1,31 @@
+{{#if show_server}}
+  <h3>Server</h3>
+
+  <table class="server-list">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Memory</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="server-list-item">
+        <td>{{ server.image_name }}</td>
+        <td>{{ server.memory }} MB</td>
+        <td>
+          {{#if server.loading}}
+            <i class="fa fa-refresh fa-spin"></i>
+          {{/if}}
+          <span class="server-status"> {{ server.status }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="tiny" data-action="server-power" {{#if controls.server_power.disabled}}disabled{{/if}}>
+    {{#if controls.server_power.on}}Destroy Server{{else}}Start Server{{/if}}</button>
+  <button class="tiny" data-action="terminal-switch" {{#if controls.terminal_switch.disabled}}disabled{{/if}}
+  {{#unless controls.terminal_switch.visible}}style="display: none"{{/unless}}>
+    {{#if controls.terminal_switch.on}}Close Terminal{{else}}Open Terminal{{/if}}</button></button>
+{{/if}}
