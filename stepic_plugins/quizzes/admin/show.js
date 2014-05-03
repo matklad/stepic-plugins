@@ -77,6 +77,9 @@ function showAdminQuiz(target, template, dataset, reply, disabled) {
   };
 
   var updateServerView = function () {
+    if ($('i.icon-hourglass').length) {  // Quiz is checking now
+      return;
+    }
     target.html(template(context));
     target.find('[data-action=server-power]').on('click', function () {
       if (context.controls.server_power.on) {
@@ -185,7 +188,9 @@ function showAdminQuiz(target, template, dataset, reply, disabled) {
         updateServerView();
       });
     }
-    setTimeout(pollServer, 2000);
+    if (!$('i.icon-hourglass').length) {  // Quiz is not checking now
+      setTimeout(pollServer, 2000);
+    }
   })();
 
   // return an object with `submit` method, which returns reply
